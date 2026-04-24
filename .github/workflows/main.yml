@@ -5,18 +5,18 @@ on:
     - cron: '30 21 * * *'
 
 permissions:
-  contents: write # ESTO CORRIGE EL ERROR 128 (Permiso de escritura)
+  contents: write # Esto soluciona el error 128 (Permiso de escritura)
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Descargar codigo
-        uses: actions/checkout@v4 # Versión actualizada
+        uses: actions/checkout@v4 # Versión moderna
       - name: Configurar Python
-        uses: actions/setup-python@v5 # Versión actualizada
+        uses: actions/setup-python@v5 # Versión moderna
         with:
-          python-version: '3.9' # Corregido: era 'python-version', no 'python-python-version'
+          python-version: '3.11' # Versión estable de Python
       - name: Instalar librerias
         run: pip install requests
       - name: Ejecutar extractor
