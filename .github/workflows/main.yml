@@ -22,9 +22,11 @@ jobs:
       - name: Ejecutar extractor
         run: python extractor.py
       - name: Guardar cambios
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Esto le da la "llave" maestra
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add bonoloto.json
-          git commit -m "Actualizacion automatica" || exit 0
-          git push
+          git commit -m "Actualizacion automatica de resultados" || exit 0
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main
