@@ -5,18 +5,18 @@ on:
     - cron: '30 21 * * *'
 
 permissions:
-  contents: write # Esto soluciona el error 128 (Permiso de escritura)
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Descargar codigo
-        uses: actions/checkout@v4 # Versión moderna
+        uses: actions/checkout@v4
       - name: Configurar Python
-        uses: actions/setup-python@v5 # Versión moderna
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11' # Versión estable de Python
+          python-version: '3.11'
       - name: Instalar librerias
         run: pip install requests
       - name: Ejecutar extractor
@@ -26,5 +26,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add bonoloto.json
-          git commit -m "Actualizacion automatica de resultados" || exit 0
+          git commit -m "Actualizacion automatica" || exit 0
           git push
