@@ -1,0 +1,27 @@
+name: Actualizar Loterias
+on:
+  workflow_dispatch: # Esto nos permite darle a un botón para probarlo ahora
+  schedule:
+    - cron: '30 21 * * *' # Se ejecuta todas las noches a las 21:30
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v2
+      - name: Configurar Python
+        uses: actions/setup-python@v2
+        with:
+          python-python-version: '3.9'
+      - name: Instalar librerias
+        run: pip install requests
+      - name: Ejecutar extractor
+        run: python extractor.py
+      - name: Guardar cambios
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add bonoloto.json
+          git commit -m "Actualizacion automatica de resultados" || exit 0
+          git push
